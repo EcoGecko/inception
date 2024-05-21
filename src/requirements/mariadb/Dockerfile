@@ -9,13 +9,4 @@ COPY ./tools/mariadb_setup.sh /tmp
 
 RUN chmod +x /tmp/mariadb_setup.sh
 
-# # CMD [ "sh", "/tmp/mariadb_setup.sh" ]
-
-# FROM debian:11
-
-# RUN apt-get update && apt-get upgrade
-# RUN apt-get install -y mariadb-server
-
-# COPY ./tools/mariadb_setup.sh /tmp/mariadb_setup.sh
-
-# RUN chmod +x /tmp/mariadb_setup.sh
+CMD [ "sh", "/tmp/mariadb_setup.sh" ]

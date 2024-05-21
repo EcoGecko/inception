@@ -7,8 +7,11 @@ services:
     ports:
       - '443:443'
       
-  # mariadb:
-  #   build: ./requirements/mariadb/
-  #   container_name: mariadb_c
-  #   expose:
-  #     - '3306'
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb_c
+    expose:
+      - '3306'
+
+# TODO: Add wordpress
+# TODO: Add networks
