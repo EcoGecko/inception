@@ -1,6 +1,7 @@
 all: build run
 
 build:
+	mkdir -p ~/data/mariadb ~/data/wordpress
 	docker compose -f ./src/docker-compose.yml build
 
 run:
@@ -40,6 +41,9 @@ fclean:
 	docker stop $$(docker ps -qa); docker rm $$(docker ps -qa);\
 	docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q);\
 	docker network rm $$(docker network ls -q) 2>/dev/null
+
+vclean:
+	sudo rm -rf ~/data/mariadb/ ~/data/wordpress
 
 delete:
 	docker system prune -af
