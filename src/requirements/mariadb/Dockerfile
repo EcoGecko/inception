@@ -9,4 +9,4 @@ COPY ./tools/mariadb_setup.sh /tmp
 
 RUN chmod +x /tmp/mariadb_setup.sh
 
-CMD [ "sh", "/tmp/mariadb_setup.sh" ]
+# CMD [ "sh", "/tmp/mariadb_setup.sh" ]
