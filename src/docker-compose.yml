@@ -2,7 +2,6 @@ services:
   nginx:
     build:
       context: ./requirements/nginx/
-    # image: nginx_i
     container_name: nginx_c
     ports:
       - '443:443'
@@ -16,6 +15,8 @@ services:
       - '3306'
     networks:
         - inception
+    env_file:
+        - .env
 
   wordpress:
     build: ./requirements/wordpress/
@@ -24,7 +25,24 @@ services:
       - '9000'
     networks:
         - inception
+    env_file:
+        - .env
 
 networks:
   inception:
     name: inception
+
+volumes:
+  mariadb:
+#     name: mariadb_data
+#     driver_opts:
+#       type: none
+#       device: $HOME/data/mariadb
+#       o: bind
+
+  wordpress:
+#     name: wordpress_data
+#     driver_opts:
+#       type: none
+#       device: $HOME/data/wordpress
+#       o: bind
