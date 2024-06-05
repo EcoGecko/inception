@@ -3,30 +3,49 @@ services:
     build:
       context: ./requirements/nginx/
     container_name: nginx_c
+    env_file: .env
+    restart: on-failure
     ports:
       - '443:443'
+    # depends_on:
+    #   - wordpress
     networks:
         - inception
+    volumes:
+      - wordpress:/var/www/html
       
   mariadb:
     build: ./requirements/mariadb/
     container_name: mariadb_c
+    env_file: .env
+    restart: on-failure
     expose:
       - '3306'
     networks:
-        - inception
-    env_file:
-        - .env
+      - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h localhost -u root -p${SQL_PASSWORD}
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   wordpress:
     build: ./requirements/wordpress/
     container_name: wordpress_c
+    env_file: .env
+    restart: on-failure
     expose:
       - '9000'
+    # depends_on:
+    #   mariadb:
+    #     condition: service_healthy
     networks:
-        - inception
-    env_file:
-        - .env
+      - inception
+    volumes:
+      - wordpress:/var/www/html
 
 networks:
   inception:
@@ -34,15 +53,4 @@ networks:
 
 volumes:
   mariadb:
-#     name: mariadb_data
-#     driver_opts:
-#       type: none
-#       device: $HOME/data/mariadb
-#       o: bind
-
   wordpress:
-#     name: wordpress_data
-#     driver_opts:
-#       type: none
-#       device: $HOME/data/wordpress
-#       o: bind

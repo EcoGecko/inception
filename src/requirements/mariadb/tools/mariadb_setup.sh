@@ -11,8 +11,8 @@ rc-service mariadb start
 mysql_secure_installation << EOF
 
 y
-$MYSQL_ROOT_PASSWORD
-$MYSQL_ROOT_PASSWORD
+$SQL_ROOT_PASSWORD
+$SQL_ROOT_PASSWORD
 y
 y
 y
@@ -20,14 +20,14 @@ y
 EOF
 
 # Create database and user
-mariadb -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE $MYSQL_DATABASE;"
-mariadb -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mariadb -uroot -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mariadb -uroot -p$MYSQL_ROOT_PASSWORD -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
-mariadb -uroot -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
+mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "CREATE DATABASE \`${SQL_DATABASE}\`;"
+mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "CREATE USER \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
+mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';"
+mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
+mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 
 # Stop mariadb service
-mariadb-admin -uroot -p$MYSQL_ROOT_PASSWORD shutdown
+mariadb-admin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 
 # Start mariadb service
 mysqld_safe
