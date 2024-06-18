@@ -8,8 +8,10 @@ RUN mkdir -p /var/lib/mysql
 EXPOSE 3306
 
 COPY ./tools/mariadb_setup.sh /tmp
+COPY ./tools/healthcheck.sh /
 COPY ./conf/mariadb.cnf /etc/my.cnf.d/mariadb.cnf
 
 RUN chmod +x /tmp/mariadb_setup.sh
+RUN chmod +x healthcheck.sh
 
 CMD [ "sh", "/tmp/mariadb_setup.sh" ]

@@ -7,8 +7,8 @@ services:
     restart: on-failure
     ports:
       - '443:443'
-    # depends_on:
-    #   - wordpress
+    depends_on:
+      - wordpress
     networks:
         - inception
     volumes:
@@ -26,11 +26,11 @@ services:
     volumes:
       - mariadb:/var/lib/mysql
     healthcheck:
-      test: mysqladmin ping -h localhost -u root -p${SQL_PASSWORD}
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
       interval: 10s
       timeout: 5s
-      retries: 10
-      start_period: 10s
+      retries: 3
 
   wordpress:
     build: ./requirements/wordpress/
@@ -39,9 +39,8 @@ services:
     restart: on-failure
     expose:
       - '9000'
-    # depends_on:
-    #   mariadb:
-    #     condition: service_healthy
+    depends_on:
+      - mariadb
     networks:
       - inception
     volumes:
