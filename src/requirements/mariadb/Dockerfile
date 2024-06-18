@@ -1,7 +1,7 @@
 FROM alpine:3.19
 
 RUN apk update && apk upgrade
-RUN apk add mariadb mariadb-client openrc
+RUN apk add mariadb mariadb-client mariadb-server-utils openrc
 RUN mkdir -p /run/openrc && touch /run/openrc/softlevel
 RUN mkdir -p /var/lib/mysql
 

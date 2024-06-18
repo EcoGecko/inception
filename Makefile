@@ -1,4 +1,4 @@
-all: build run
+all: build rund
 
 build:
 	mkdir -p ~/data/mariadb ~/data/wordpress
