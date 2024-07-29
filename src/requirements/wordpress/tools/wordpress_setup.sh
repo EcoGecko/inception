@@ -8,10 +8,7 @@ print_red() {
   echo -e "\e[31m$1\e[0m"
 }
 
-sleep 1
-
 wp core download --path='/var/www/html' --allow-root
-print_green "downloaded wordpress"
  
 # SQL_DATABASE=mariadb
 # SQL_HOST=mariadb:3306
@@ -29,16 +26,29 @@ print_green "downloaded wordpress"
 # WP_ADMIN_EMAIL=admin@example.com
 # WP_ADMIN_PASSWORD=9876543210
 
-sleep 1
+# if wp config create --dbname=$SQL_DATABASE \
+# 	--dbuser=$WP_USER \
+# 	--dbpass=$WP_PASSWORD \
+# 	--dbhost=$SQL_HOST \
+# 	--path='/var/www/html' \
+# 	--allow-root
+# then
+# 	print_green "created config"
+# else 
+# 	print_red "config already exists"
+# fi
 
-wp core config --dbname=$SQL_DATABASE \
-  --dbuser=$WP_USER \
-  --dbpass=$WP_PASSWORD \
-  --dbhost=$SQL_HOST \
-  --path='/var/www/html' \
-  --allow-root
-
-sleep 1
+# if wp core config --dbname=$SQL_DATABASE \
+# 	 --dbuser=$WP_USER \
+# 	 --dbpass=$WP_PASSWORD \
+# 	--dbhost=$SQL_HOST \
+# 	--path='/var/www/html' \
+# 	--allow-root
+# then
+# 	print_green "created config"
+# else
+# 	print_red "config already exists"
+# fi
 
 if ! wp core is-installed --path='/var/www/html' --allow-root; then
   wp core install --url=$WP_URL \
@@ -55,8 +65,6 @@ if ! wp core is-installed --path='/var/www/html' --allow-root; then
 else
 	print_red "wordpress already configured"
 fi
-
-sleep 1
 
 if ! wp user list --field=user_login  --path='/var/www/html' --allow-root | grep -q "^$WP_USER$"; then
   	wp user create 	$WP_USER $WP_USER_EMAIL \

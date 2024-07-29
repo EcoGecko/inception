@@ -2,7 +2,7 @@ services:
   nginx:
     build:
       context: ./requirements/nginx/
-    container_name: nginx_c
+    container_name: nginx
     env_file: .env
     restart: on-failure
     ports:
@@ -16,7 +16,7 @@ services:
       
   mariadb:
     build: ./requirements/mariadb/
-    container_name: mariadb_c
+    container_name: mariadb
     env_file: .env
     restart: on-failure
     expose:
@@ -35,14 +35,15 @@ services:
 
   wordpress:
     build: ./requirements/wordpress/
-    container_name: wordpress_c
+    container_name: wordpress
     env_file: .env
     restart: on-failure
     expose:
       - '9000'
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
+      # mariadb:
+      #   condition: service_healthy
     networks:
       - inception
     volumes:

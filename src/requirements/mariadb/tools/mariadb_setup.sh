@@ -36,4 +36,5 @@ mariadb-admin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 sleep 1
 
 # Start mariadb service
-# mysqld_safe
+rc-service mariadb restart
+mysqld_safe
