@@ -39,11 +39,11 @@ services:
     env_file: .env
     restart: on-failure
     expose:
-      - '9000'
+      - '8080'
     depends_on:
-      - mariadb
-      # mariadb:
-      #   condition: service_healthy
+      #- mariadb
+      mariadb:
+        condition: service_healthy
     networks:
       - inception
     volumes:
@@ -52,6 +52,7 @@ services:
 networks:
   inception:
     name: inception
+    driver: bridge
 
 volumes:
   mariadb:

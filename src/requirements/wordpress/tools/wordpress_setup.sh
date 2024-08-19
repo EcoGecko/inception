@@ -29,25 +29,25 @@ wp core download --path='/var/www/html' --allow-root
 # if wp config create --dbname=$SQL_DATABASE \
 # 	--dbuser=$WP_USER \
 # 	--dbpass=$WP_PASSWORD \
-# 	--dbhost=$SQL_HOST \
-# 	--path='/var/www/html' \
-# 	--allow-root
-# then
-# 	print_green "created config"
-# else 
-# 	print_red "config already exists"
+#  	--dbhost=$SQL_HOST \
+#  	--path='/var/www/html' \
+#  	--allow-root
+#  then
+#  	print_green "created config"
+#  else 
+#  	print_red "config already exists"
 # fi
 
 # if wp core config --dbname=$SQL_DATABASE \
-# 	 --dbuser=$WP_USER \
-# 	 --dbpass=$WP_PASSWORD \
-# 	--dbhost=$SQL_HOST \
-# 	--path='/var/www/html' \
-# 	--allow-root
-# then
-# 	print_green "created config"
-# else
-# 	print_red "config already exists"
+#  	 --dbuser=$WP_USER \
+#  	 --dbpass=$WP_PASSWORD \
+#  	--dbhost=$SQL_HOST \
+#  	--path='/var/www/html' \
+#  	--allow-root
+#  then
+#  	print_green "created config"
+#  else
+#  	print_red "config already exists"
 # fi
 
 if ! wp core is-installed --path='/var/www/html' --allow-root; then
@@ -81,5 +81,5 @@ fi
 
 sleep 1
 
-# launch php-pfm
-/usr/sbin/php-fpm82 -F
+#launch php-pfm
+/usr/sbin/php-fpm7.4 -F

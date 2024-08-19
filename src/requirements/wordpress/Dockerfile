@@ -22,7 +22,7 @@
 
 FROM debian:bullseye
 
-EXPOSE 9000
+EXPOSE 8080
 
 RUN apt update -y && apt upgrade -y
 RUN apt install -y wget curl php-fpm php php-mysql mariadb-client
@@ -35,7 +35,7 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 RUN wp cli update
 
-# COPY conf/wp-config.php /var/www/html
+COPY conf/wp-config.php /var/www/html
 # COPY tools/index.html /var/www/html
 COPY tools/wordpress_setup.sh /tmp/wordpress_setup.sh 
 RUN chmod +x /tmp/wordpress_setup.sh
