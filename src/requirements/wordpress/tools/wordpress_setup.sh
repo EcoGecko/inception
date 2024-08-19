@@ -26,29 +26,29 @@ wp core download --path='/var/www/html' --allow-root
 # WP_ADMIN_EMAIL=admin@example.com
 # WP_ADMIN_PASSWORD=9876543210
 
-# if wp config create --dbname=$SQL_DATABASE \
-# 	--dbuser=$WP_USER \
-# 	--dbpass=$WP_PASSWORD \
-#  	--dbhost=$SQL_HOST \
-#  	--path='/var/www/html' \
-#  	--allow-root
-#  then
-#  	print_green "created config"
-#  else 
-#  	print_red "config already exists"
-# fi
+if wp config create --dbname=$SQL_DATABASE \
+	--dbuser=$WP_USER \
+	--dbpass=$WP_PASSWORD \
+ 	--dbhost=$SQL_HOST \
+ 	--path='/var/www/html' \
+ 	--allow-root
+ then
+ 	print_green "created config"
+ else 
+ 	print_red "config already exists"
+fi
 
-# if wp core config --dbname=$SQL_DATABASE \
-#  	 --dbuser=$WP_USER \
-#  	 --dbpass=$WP_PASSWORD \
-#  	--dbhost=$SQL_HOST \
-#  	--path='/var/www/html' \
-#  	--allow-root
-#  then
-#  	print_green "created config"
-#  else
-#  	print_red "config already exists"
-# fi
+if wp core config --dbname=$SQL_DATABASE \
+ 	 --dbuser=$WP_USER \
+ 	 --dbpass=$WP_PASSWORD \
+ 	--dbhost=$SQL_HOST \
+ 	--path='/var/www/html' \
+ 	--allow-root
+ then
+ 	print_green "created config"
+ else
+ 	print_red "config already exists"
+fi
 
 if ! wp core is-installed --path='/var/www/html' --allow-root; then
   wp core install --url=$WP_URL \
@@ -70,8 +70,8 @@ if ! wp user list --field=user_login  --path='/var/www/html' --allow-root | grep
   	wp user create 	$WP_USER $WP_USER_EMAIL \
 			   		--role=author \
 					--user_pass=$WP_PASSWORD \
-					--path='/var/www/html' \
-					--allow-root
+					--allow-root \
+					--path='/var/www/html'
 	
 		print_green "created user $WP_USER"
 

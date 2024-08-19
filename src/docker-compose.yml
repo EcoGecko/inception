@@ -39,7 +39,7 @@ services:
     env_file: .env
     restart: on-failure
     expose:
-      - '8080'
+      - '9000'
     depends_on:
       #- mariadb
       mariadb:
