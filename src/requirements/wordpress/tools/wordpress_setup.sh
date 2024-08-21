@@ -12,24 +12,7 @@ sleep 1
 
 wp core download --path='/var/www/html' --allow-root
 print_green "downloaded wordpress"
- 
-# SQL_DATABASE=mariadb
-# SQL_HOST=mariadb:3306
-# SQL_USER=heda-sil
-# SQL_PASSWORD=0123456789
-# SQL_ROOT_PASSWORD=9876543210
 
-# # Wordpress
-# WP_URL=heda-sil.42.fr
-# WP_TITLE=no-title-page
-# WP_USER=heda-sil
-# WP_EMAIL=heda-sil@example.com
-# WP_PASSWORD=0123456789
-# WP_ADMIN=admin
-# WP_ADMIN_EMAIL=admin@example.com
-# WP_ADMIN_PASSWORD=9876543210
-
-sleep 1
 
 wp core config --dbname=$SQL_DATABASE \
   --dbuser=$WP_USER \
@@ -37,8 +20,6 @@ wp core config --dbname=$SQL_DATABASE \
   --dbhost=$SQL_HOST \
   --path='/var/www/html' \
   --allow-root
-
-sleep 1
 
 if ! wp core is-installed --path='/var/www/html' --allow-root; then
   wp core install --url=$WP_URL \
@@ -56,8 +37,6 @@ else
 	print_red "wordpress already configured"
 fi
 
-sleep 1
-
 if ! wp user list --field=user_login  --path='/var/www/html' --allow-root | grep -q "^$WP_USER$"; then
   	wp user create 	$WP_USER $WP_USER_EMAIL \
 			   		--role=author \
@@ -70,8 +49,6 @@ if ! wp user list --field=user_login  --path='/var/www/html' --allow-root | grep
 else
 	print_red "user $WP_USER already exists"
 fi
-
-sleep 1
 
 # launch php-pfm
 /usr/sbin/php-fpm82 -F

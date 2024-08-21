@@ -1,27 +1,13 @@
 #!/bin/bash
-
-# # Init service manager and setup mariadb
-openrc default
-rc-service mariadb setup
-
-# # Start mariadb service
-rc-service mariadb start
-# service mariadb start;
-
-sleep 1
 # Secure mariadb installation
-mysql_secure_installation << EOF
-
-y
-$SQL_ROOT_PASSWORD
-$SQL_ROOT_PASSWORD
-y
-y
-y
-y
-EOF
-
-sleep 1
+mariadb-install-db --datadir=${DATA_DIR} --auth-root-authentication-method=normal \
+	--skip-test-db \
+	--old-mode='UTF8_IS_UTF8MB3' \
+	--default-time-zone=SYSTEM --enforce-storage-engine= \
+	--skip-log-bin \
+	-expire-logs-days=0 \
+	--loose-innobd_buffer_pool_load_at_startup=0 \
+	--loose-innodb_buffer_pool_dump_at_shutdown=0
 
 # Create database and user
 mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
@@ -36,4 +22,5 @@ mariadb-admin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 sleep 1
 
 # Start mariadb service
-mysqld_safe
+# mysqld_safe
+exec mariadbd -u root --skip-networking=false --port=3306

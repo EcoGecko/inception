@@ -13,33 +13,10 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 RUN wp cli update
 
-# COPY conf/wp-config.php /var/www/html
+COPY conf/wp-config.php /var/www/html
 # COPY tools/index.html /var/www/html
 COPY tools/wordpress_setup.sh /tmp/wordpress_setup.sh 
 COPY conf/www.conf /etc/php82/php-fpm.d
 RUN chmod +x /tmp/wordpress_setup.sh
 
 CMD ["sh", "/tmp/wordpress_setup.sh"]
-
-# FROM debian:bullseye
-
-# EXPOSE 9000
-
-# RUN apt update -y && apt upgrade -y
-# RUN apt install -y wget curl php-fpm php php-mysql mariadb-client
-
-# RUN mkdir -p /var/www/html
-# RUN mkdir -p /run/php
-
-# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# RUN chmod +x wp-cli.phar
-# RUN mv wp-cli.phar /usr/local/bin/wp
-# RUN wp cli update
-
-# # COPY conf/wp-config.php /var/www/html
-# COPY tools/index.html /var/www/html
-# COPY tools/wordpress_setup.sh /tmp/wordpress_setup.sh 
-# RUN chmod +x /tmp/wordpress_setup.sh
-
-# CMD [ "bash", "/tmp/wordpress_setup.sh"]
-# CMD [ "tail", "-f", "/dev/null" ]
