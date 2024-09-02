@@ -14,7 +14,6 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 RUN wp cli update
 
 COPY conf/wp-config.php /var/www/html
-# COPY tools/index.html /var/www/html
 COPY tools/wordpress_setup.sh /tmp/wordpress_setup.sh 
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d
 RUN chmod +x /tmp/wordpress_setup.sh
