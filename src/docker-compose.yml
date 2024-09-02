@@ -26,7 +26,6 @@ services:
     volumes:
       - mariadb:/var/lib/mysql
     healthcheck:
-      # test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       test: mysqladmin ping -h localhost -u root -p${SQL_ROOT_PASSWORD}
       start_period: 10s
       interval: 5s
