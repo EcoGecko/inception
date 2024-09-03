@@ -14,4 +14,4 @@ mariadb -uroot -p${SQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 mariadb-admin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 
 #Start mariadb service
-mysqld_safe
+exec "$@"

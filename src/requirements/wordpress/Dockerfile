@@ -18,4 +18,5 @@ COPY tools/wordpress_setup.sh /tmp/wordpress_setup.sh
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d
 RUN chmod +x /tmp/wordpress_setup.sh
 
-CMD [ "bash", "/tmp/wordpress_setup.sh"]
+ENTRYPOINT [ "/tmp/wordpress_setup.sh" ]
+CMD [ "php-fpm7.4", "-F" ]

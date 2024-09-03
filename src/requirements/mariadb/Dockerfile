@@ -6,8 +6,7 @@ RUN apt update -y && apt upgrade -y
 RUN apt install -y mariadb-server
 
 COPY ./tools/mariadb_setup.sh /tmp
-COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-
 RUN chmod +x /tmp/mariadb_setup.sh
 
-CMD [ "bash", "/tmp/mariadb_setup.sh" ]
+ENTRYPOINT [ "/tmp/mariadb_setup.sh" ]
+CMD [ "mysqld_safe", "--bind-address=0.0.0.0" ]
