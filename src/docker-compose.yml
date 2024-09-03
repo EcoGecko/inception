@@ -40,7 +40,6 @@ services:
     expose:
       - '9000'
     depends_on:
-      #- mariadb
       mariadb:
         condition: service_healthy
     networks:
@@ -51,7 +50,6 @@ services:
 networks:
   inception:
     name: inception
-    driver: bridge
 
 volumes:
   mariadb:
